@@ -2,8 +2,6 @@ package com.shan.forat.rest_project.rest;
 
 import com.shan.forat.rest_project.entity.Student;
 import jakarta.annotation.PostConstruct;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -41,37 +39,4 @@ public class StudentRestController {
 
         return  theStudents.get(studentId);
     }
-
-
-
-
-
-
-
-    @ExceptionHandler
-    public ResponseEntity<StudentErrorResponse> handleException(StudentNotFoundException exc){
-        //create a studentErrorResponse
-        StudentErrorResponse errorResponse = new StudentErrorResponse();
-        errorResponse.setStatus(HttpStatus.NOT_FOUND.value());
-        errorResponse.setMessage(exc.getMessage());
-        errorResponse.setTimeStamp(System.currentTimeMillis());
-        //Return Response Entity
-        return new ResponseEntity<>(errorResponse,HttpStatus.NOT_FOUND);
-    }
-
-
-
-    @ExceptionHandler
-    public ResponseEntity<StudentErrorResponse> handleException(Exception exception){
-        //create a studentErrorResponse
-        StudentErrorResponse errorResponse = new StudentErrorResponse();
-        errorResponse.setStatus(HttpStatus.BAD_REQUEST.value());
-        errorResponse.setMessage(exception.getMessage());
-        errorResponse.setTimeStamp(System.currentTimeMillis());
-        //Return Response Entity
-        return new ResponseEntity<>(errorResponse,HttpStatus.BAD_REQUEST);
-    }
-
-
-
 }
